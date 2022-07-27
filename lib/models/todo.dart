@@ -16,12 +16,11 @@ class Todo {
   @HiveField(3)
   bool completed;
 
-  Todo({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.completed,
-  });
+  Todo(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.completed});
 
   @override
   String toString() => '$id: $title: $description: $completed';

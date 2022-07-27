@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:to_do_app/models/todo.dart';
+import 'package:to_do_app/screens/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import 'models/todo.dart';
-import 'screens/splash_screen.dart';
-
+import 'config/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Hive
-    ..initFlutter() // support web
-    //..init((await getTemporaryDirectory()).path) // mobile
+    ..initFlutter()
+    ..init((await getApplicationSupportDirectory()).path)
     ..registerAdapter(TodoAdapter());
 
   await Hive.openBox<Todo>('todos');

@@ -1,9 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
-import '../animations/fade_route.dart';
-import 'todo_screen.dart';
+import 'package:to_do_app/animations/fade_route.dart';
+import 'package:to_do_app/screens/todo_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -21,7 +20,12 @@ class _SplashScreenState extends State<SplashScreen>
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.pushReplacement(context, CustomPageRoute(const TodoScreen()));
+        Navigator.pushReplacement(
+          context,
+          CustomPageRoute(
+             TodoScreen(),
+          ),
+        );
       }
     });
 

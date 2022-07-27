@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../providers/todos_provider.dart';
+import 'package:to_do_app/providers/todos_provider.dart';
+import 'package:to_do_app/widgets/todo_card.dart';
 import '../widgets/todos_form_screen.dart';
 
 class TodoView extends StatefulWidget {
@@ -17,6 +17,7 @@ class _TodoViewState extends State<TodoView> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           "Todos",
           style: TextStyle(
@@ -65,12 +66,35 @@ class _TodoViewState extends State<TodoView> {
                             itemCount: provider.todos.length,
                             itemBuilder: (BuildContext context, int index) {
                               final todo = provider.todos[index];
-                              return Card(
-                                child: ListTile(
-                                  title: Text(todo.title),
-                                  subtitle: Text(todo.description),
-                                ),
-                              );
+                              return TodoCard(
+                                  todo: todo,
+                                  onTap: (todo) {
+                                    todo.completed = !todo.completed;
+                                    context
+                                        .read<TodosProvider>()
+                                        .update(todo);
+                                  },
+                                  onDelete: (todo) {
+                                    context
+                                        .read<TodosProvider>()
+                                        .removeTodo(todo);
+                                  },
+                                  onEdit: (todo) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            fullscreenDialog: true,
+                                            builder: (_) {
+                                              return ChangeNotifierProvider<
+                                                  TodosProvider>.value(
+                                                value: context
+                                                    .read<TodosProvider>(),
+                                                child: TodosFormScreen(
+                                                  todo: todo,
+                                                ),
+                                              );
+                                            }));
+                                  });
                             }),
                       ),
               );

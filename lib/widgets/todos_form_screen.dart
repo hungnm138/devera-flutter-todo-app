@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_app/providers/todos_provider.dart';
 
 import '../models/todo.dart';
-import '../providers/todos_provider.dart';
 
 class TodosFormScreen extends StatefulWidget {
   const TodosFormScreen({Key? key, this.todo}) : super(key: key);
@@ -57,12 +57,11 @@ class _TodosFormScreenState extends State<TodosFormScreen> {
                         : null,
                     maxLines: 4,
                     onChanged: (val) => _description = val,
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
-                      alignLabelWithHint: true,
-                    ),
+                    decoration: const InputDecoration(labelText: 'Description'),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   SizedBox(
                     height: 45,
                     child: ElevatedButton(
@@ -91,7 +90,7 @@ class _TodosFormScreenState extends State<TodosFormScreen> {
 
       widget.todo == null
           ? context.read<TodosProvider>().addTodo(todo)
-          : context.read<TodosProvider>().updateTodo(todo, widget.todo!.id);
+          : context.read<TodosProvider>().update(todo);
 
       Navigator.pop(context);
     }

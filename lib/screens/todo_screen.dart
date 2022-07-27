@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../providers/todos_provider.dart';
-import 'todo_view.dart';
+import 'package:to_do_app/providers/todos_provider.dart';
+import 'package:to_do_app/screens/todo_view.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({Key? key}) : super(key: key);
